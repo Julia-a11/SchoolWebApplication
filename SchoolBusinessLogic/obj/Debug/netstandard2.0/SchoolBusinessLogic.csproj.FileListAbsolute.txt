@@ -1,9 +1,0 @@
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\bin\Debug\netstandard2.0\SchoolBusinessLogic.deps.json
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\bin\Debug\netstandard2.0\SchoolBusinessLogic.dll
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\bin\Debug\netstandard2.0\SchoolBusinessLogic.pdb
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.AssemblyInfoInputs.cache
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.AssemblyInfo.cs
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.csproj.CoreCompileInputs.cache
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.dll
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.pdb
-C:\Учёба\4 семестр\Курсовая работа по ТП\SchoolWebApplication\SchoolBusinessLogic\obj\Debug\netstandard2.0\SchoolBusinessLogic.csprojAssemblyReference.cache
