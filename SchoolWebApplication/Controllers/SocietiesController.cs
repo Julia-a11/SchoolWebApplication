@@ -16,11 +16,16 @@ namespace SchoolWebApplication.Controllers
 
         private readonly LessonLogic _lessonLogic;
 
-        public SocietiesController(SocietyLogic societyLogic, LessonLogic lessonLogic)
+        private readonly ClientLogic _clientLogic;
+
+        public SocietiesController(SocietyLogic societyLogic, LessonLogic lessonLogic, ClientLogic clientLogic)
         {
             _societyLogic = societyLogic;
             _lessonLogic = lessonLogic;
+            _clientLogic = clientLogic;
         }
+
+
 
         // GET: Societies
         public async Task<IActionResult> Index()
@@ -65,7 +70,7 @@ namespace SchoolWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                society.ClientId = 1;
+                society.ClientId = Program.Client.Id;
                 _societyLogic.CreateOrUpdate(society);
                 return RedirectToAction(nameof(Index));
             }
@@ -73,92 +78,93 @@ namespace SchoolWebApplication.Controllers
             return View(society);
         }
 
-        //// GET: Societies/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Societies/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var society = await _logic.Societies.FindAsync(id);
-        //    if (society == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ClientId"] = new SelectList(_logic.Clients, "Id", "Id", society.ClientId);
-        //    return View(society);
-        //}
+            var society =  _societyLogic.Read(new SocietyBindingModel { Id = id}).FirstOrDefault();
+            if (society == null)
+            {
+                return NotFound();
+            }
+            ViewData["LessonId"] = new MultiSelectList(_lessonLogic.Read(null), "Id", "LessonName");
+            return View(new SocietyBindingModel { 
+            Id = society.Id,
+            SocietyName = society.SocietyName,
+            AgeLimit = society.AgeLimit,
+            Sum = society.Sum,
+            Lessons = society.Lessons.Select(rec => rec.Id).ToList()});
+        }
 
-        //// POST: Societies/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,SocietyName,AgeLimit,Sum,ClientId")] Society society)
-        //{
-        //    if (id != society.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: Societies/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SocietyName,AgeLimit,Sum,Lessons")] SocietyBindingModel society)
+        {
+            if (id != society.Id)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _logic.Update(society);
-        //            await _logic.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!SocietyExists(society.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ClientId"] = new SelectList(_logic.Clients, "Id", "Id", society.ClientId);
-        //    return View(society);
-        //}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    society.ClientId = Program.Client.Id;
+                    _societyLogic.CreateOrUpdate(society);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SocietyExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["LessonId"] = new MultiSelectList(_lessonLogic.Read(null), "Id", "LessonName");
+            return View(society);
+        }
 
-        //// GET: Societies/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Societies/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var society = await _logic.Societies
-        //        .Include(s => s.Client)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (society == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var society = _societyLogic.Read(new SocietyBindingModel { Id = id }).FirstOrDefault();
+            if (society == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(society);
-        //}
+            return View(society);
+        }
 
-        //// POST: Societies/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var society = await _logic.Societies.FindAsync(id);
-        //    _logic.Societies.Remove(society);
-        //    await _logic.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: Societies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            _societyLogic.Delete(new SocietyBindingModel { Id = id });
+            return RedirectToAction(nameof(Index));
+        }
 
-        //private bool SocietyExists(int id)
-        //{
-        //    return _logic.Societies.Any(e => e.Id == id);
-        //}
+        private bool SocietyExists(int id)
+        {
+            return _societyLogic.Read(null).Any(e => e.Id == id);
+        }
     }
 }

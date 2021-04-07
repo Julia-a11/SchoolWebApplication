@@ -26,7 +26,7 @@ namespace SchoolDAL.Models
         public string Login { get; set; }
 
         [Required]
-        public int Password { get; set; }
+        public string Password { get; set; }
 
         public virtual Client Client { get; set; }
 

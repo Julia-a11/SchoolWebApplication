@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SchoolDAL.Migrations
 {
@@ -12,7 +13,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Sum = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -25,14 +26,14 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(nullable: false),
                     Patronymic = table.Column<string>(nullable: false),
                     DateBirth = table.Column<DateTime>(nullable: false),
                     PhoneNumber = table.Column<int>(nullable: false),
                     Login = table.Column<string>(nullable: false),
-                    Password = table.Column<int>(nullable: false)
+                    Password = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +45,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -63,7 +64,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -82,10 +83,11 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SocietyName = table.Column<string>(nullable: false),
+                    DateCreate = table.Column<DateTime>(nullable: false),
                     AgeLimit = table.Column<int>(nullable: false),
-                    Sum = table.Column<double>(nullable: false),
+                    Sum = table.Column<decimal>(nullable: false),
                     ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -104,23 +106,15 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     LessonName = table.Column<string>(nullable: false),
-                    DateLesson = table.Column<DateTime>(nullable: false),
                     LessonCount = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    EmployeeId = table.Column<int>(nullable: false),
-                    ClientId = table.Column<int>(nullable: true)
+                    EmployeeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lessons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Lessons_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Lessons_Employees_EmployeeId",
                         column: x => x.EmployeeId,
@@ -134,7 +128,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SocietyId = table.Column<int>(nullable: false),
                     CostId = table.Column<int>(nullable: false)
                 },
@@ -160,7 +154,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Sum = table.Column<decimal>(nullable: false),
                     LessonId = table.Column<int>(nullable: false)
                 },
@@ -180,7 +174,7 @@ namespace SchoolDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SocietyId = table.Column<int>(nullable: false),
                     LessonId = table.Column<int>(nullable: false)
                 },
@@ -192,13 +186,13 @@ namespace SchoolDAL.Migrations
                         column: x => x.LessonId,
                         principalTable: "Lessons",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SocietyLessons_Societies_SocietyId",
                         column: x => x.SocietyId,
                         principalTable: "Societies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -212,11 +206,6 @@ namespace SchoolDAL.Migrations
                 table: "Employees",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_ClientId",
-                table: "Lessons",
-                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_EmployeeId",

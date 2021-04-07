@@ -12,7 +12,7 @@ namespace SchoolDAL
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SchoolDataBase;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=schooldatabase;Username=postgres;Password=12345");
             }
             base.OnConfiguring(optionsBuilder);
         }

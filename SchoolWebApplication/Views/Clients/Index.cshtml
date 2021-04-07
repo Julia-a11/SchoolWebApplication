@@ -1,0 +1,35 @@
+﻿@model SchoolBusinessLogic.BindingModel.ClientBindingModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+<h1>Вход</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form class="form-horizontal" asp-action="Login">
+                <div class="form-group">
+                    <label asp-for="Login" class="control-label">Логин</label>
+                    <input asp-for="Login" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Пароль</label>
+                    <input asp-for="Password" class="form-control" type="password" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Авторизация" class="btn btn-primary" />
+                </div>
+                <div class="form-group">
+                    <a asp-action="Create" class="btn btn-light">Регистрация</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>

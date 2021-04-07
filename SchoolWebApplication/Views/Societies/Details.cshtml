@@ -1,42 +1,76 @@
-﻿@model SchoolDAL.Models.Society
+﻿@model SchoolBusinessLogic.ViewModel.SocietyViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Подробнее</h1>
 
 <div>
-    <h4>Society</h4>
+    <h4>Кружки</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SocietyName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SocietyName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AgeLimit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AgeLimit)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Client)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Client.Id)
-        </dd>
-    </dl>
+    <div class="row">
+        <dl class="col-6">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SocietyName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SocietyName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AgeLimit)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AgeLimit)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sum)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Sum)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ClientName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ClientName)
+            </dd>
+        </dl>
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lessons[0].LessonName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lessons[0].LessonCount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lessons[0].Price)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Lessons)
+                    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LessonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LessonCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Изменить</a> |
+    <a asp-action="Index">Назад</a>
 </div>

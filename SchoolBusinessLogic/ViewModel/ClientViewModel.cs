@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace SchoolBusinessLogic.BindingModel
+namespace SchoolBusinessLogic.ViewModel
 {
     [DataContract]
-    public class ClientBindingModel
+    public class ClientViewModel
     {
         [DataMember]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [DataMember]
         [DisplayName("Имя")]

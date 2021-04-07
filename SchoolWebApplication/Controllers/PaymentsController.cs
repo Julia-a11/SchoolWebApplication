@@ -5,19 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SchoolDAL;
-using SchoolDAL.Models;
+using SchoolBusinessLogic.BusinessLogic;
 
 namespace SchoolWebApplication.Controllers
 {
     public class PaymentsController : Controller
     {
-        private readonly SchoolDataBase _context;
+        private readonly PaymentLogic _paymentLogic;
 
-        public PaymentsController(SchoolDataBase context)
+        public PaymentsController(PaymentLogic paymentLogic)
         {
-            _context = context;
+            _paymentLogic = paymentLogic;
         }
+
+
 
         // GET: Payments
         public async Task<IActionResult> Index()

@@ -28,6 +28,8 @@ namespace SchoolWebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IClientStorage, ClientStorage>();
+            services.AddScoped<ClientLogic>();
             services.AddTransient<SocietyLogic>();
             services.AddTransient<ISocietyStorage, SocietyStorage >();
             services.AddTransient<LessonLogic>();
@@ -58,7 +60,7 @@ namespace SchoolWebApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Clients}/{action=Index}/{id?}");
             });
         }
     }
