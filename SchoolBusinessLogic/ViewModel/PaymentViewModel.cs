@@ -16,5 +16,8 @@ namespace SchoolBusinessLogic.ViewModel
 
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }
+
+        [DisplayName("Всего к оплате")]
+        public decimal FullSum { get; set; }
     }
 }

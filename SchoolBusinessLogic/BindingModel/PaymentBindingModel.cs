@@ -12,6 +12,6 @@ namespace SchoolBusinessLogic.BindingModel
         public int LessonId { get; set; }
 
         [DisplayName("Сумма")]
-        public double Sum { get; set; }
+        public decimal Sum { get; set; }
     }
 }

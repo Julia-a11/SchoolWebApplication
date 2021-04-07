@@ -34,6 +34,8 @@ namespace SchoolWebApplication
             services.AddTransient<ISocietyStorage, SocietyStorage >();
             services.AddTransient<LessonLogic>();
             services.AddTransient<ILessonStorage, LessonStorage>();
+            services.AddTransient<PaymentLogic>();
+            services.AddTransient<IPaymentStorage, PaymentStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

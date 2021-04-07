@@ -1,22 +1,26 @@
-﻿@model IEnumerable<SchoolDAL.Models.Payment>
+﻿@model IEnumerable<SchoolBusinessLogic.ViewModel.PaymentViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Оплата</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Оплатить занятие</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.Sum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lesson)
+                @Html.DisplayNameFor(model => model.FullSum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LessonName)
             </th>
             <th></th>
         </tr>
@@ -28,12 +32,15 @@
                 @Html.DisplayFor(modelItem => item.Sum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lesson.LessonName)
+                @Html.DisplayFor(modelItem => item.FullSum)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.LessonName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }

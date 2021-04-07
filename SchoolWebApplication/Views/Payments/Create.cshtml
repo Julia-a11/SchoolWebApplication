@@ -1,12 +1,11 @@
-﻿@model SchoolDAL.Models.Payment
+﻿@model SchoolBusinessLogic.BindingModel.PaymentBindingModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Оплата</h1>
 
-<h4>Payment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,23 +13,45 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Sum" class="control-label"></label>
-                <input asp-for="Sum" class="form-control" />
+                <input asp-for="Sum" class="form-control" id="sum" />
                 <span asp-validation-for="Sum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LessonId" class="control-label"></label>
-                <select asp-for="LessonId" class ="form-control" asp-items="ViewBag.LessonId"></select>
+                <label class="control-label"></label>
+                <input id="fullSum" readonly class="form-control" value="ViewBag.FullSum"  />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="LessonId" class="control-label"></label>
+                <select asp-for="LessonId" id="lesson" class="form-control" asp-items="ViewBag.LessonId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Оплатить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад</a>
 </div>
+
+@*<script>
+    $('#sum').on('change', function () {
+        check();
+    });
+
+    $('#lesson').on('change', function () {
+        check();
+    });
+
+    function check() {
+        var sum = $('#sum').val();
+        var fullSum = $('#fullSum').val();
+        if (sum) {
+            $("#fullSum").val(fullSum - sum);
+        };
+    }
+</script>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

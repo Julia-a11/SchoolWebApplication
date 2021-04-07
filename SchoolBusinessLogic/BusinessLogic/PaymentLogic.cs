@@ -9,11 +9,9 @@ namespace SchoolBusinessLogic.BusinessLogic
 {
     public class PaymentLogic
     {
-        public class PaymentBusinessLogic
-        {
             private readonly IPaymentStorage _paymentStorage;
 
-            public PaymentBusinessLogic(IPaymentStorage PaymentStorage)
+            public PaymentLogic(IPaymentStorage PaymentStorage)
             {
                 _paymentStorage = PaymentStorage;
             }
@@ -33,14 +31,6 @@ namespace SchoolBusinessLogic.BusinessLogic
 
             public void CreateOrUpdate(PaymentBindingModel model)
             {
-                var element = _paymentStorage.GetElement(new PaymentBindingModel
-                {
-                    Sum = model.Sum
-                });
-                if (element == null)
-                {
-                    throw new Exception("Сумма не найдена");
-                }
                 if (model.Id.HasValue)
                 {
                     _paymentStorage.Update(model);
@@ -65,5 +55,5 @@ namespace SchoolBusinessLogic.BusinessLogic
             }
         }
     }
-}
+
 
