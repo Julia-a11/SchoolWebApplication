@@ -5,12 +5,12 @@ using System.Text;
 
 namespace SchoolBusinessLogic.HelperModel
 {
-    public class ExcelInfo
+    public class ListInfo
     {
         public string FileName { get; set; }
 
         public string Title { get; set; }
 
-        public List<ReportViewModel> Lessons { get; set; }
+        public List<SocietyViewModel> Societies { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolBusinessLogic.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,6 @@ namespace SchoolBusinessLogic.HelperModel
 
         public DateTime DateTo { get; set; }
 
-        //public List<ReportOrdersViewModel> Orders { get; set; }
+        public List<SocietyViewModel> Societies { get; set; }
     }
 }

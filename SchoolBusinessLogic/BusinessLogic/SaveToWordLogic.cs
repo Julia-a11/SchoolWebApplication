@@ -9,12 +9,12 @@ namespace SchoolBusinessLogic.BusinessLogic
     public class SaveToWordLogic
     {
         // Создание документа
-        public static void CreateDoc(WordInfo info)
+        public static void CreateDoc(ListInfo info)
         {
             using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
             {
                 MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
-                mainPart.Document = new DocumentFormat.OpenXml.Wordprocessing.Document();
+                mainPart.Document = new Document();
                 Body docBody = mainPart.Document.AppendChild(new Body());
 
                 docBody.AppendChild(CreateParagraph(new WordParagraph
@@ -36,20 +36,20 @@ namespace SchoolBusinessLogic.BusinessLogic
                 {
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
-                        Texts = new List<(string, WordParagraphProperties)> {(
-                        society.SocietyName + " ",
-                        new WordParagraphProperties
-                        {
-                            Size = "24",
-                            Bold =true
-                        }
-                        ),
-                        (
-                        society.Sum.ToString(),
-                        new WordParagraphProperties
-                        {
-                            Size = "24",
-                        }
+                        Texts = new List<(string, WordParagraphProperties)>
+                            {(
+                                society.SocietyName + ": ",
+                                new WordParagraphProperties
+                                {
+                                    Size = "24",
+                                    Bold =true
+                                }),
+                            (
+                            "возрастное ограничение: " + society.AgeLimit.ToString(),
+                            new WordParagraphProperties
+                            {
+                                Size = "24",
+                            }
                         ) },
 
                         TextProperties = new WordParagraphProperties
@@ -58,6 +58,29 @@ namespace SchoolBusinessLogic.BusinessLogic
                             JustificationValues = JustificationValues.Both
                         }
                     }));
+                    int index = 1;
+                    foreach (var lesson in society.Lessons)
+                    {
+                        docBody.AppendChild(CreateParagraph(new WordParagraph
+                        {
+                            Texts = new List<(string, WordParagraphProperties)> {(
+                                index + ". " + lesson.LessonName + ", количество занятий: " + lesson.LessonCount.ToString() + ", общая стоимость: " +
+                                lesson.Price.ToString(),
+                                new WordParagraphProperties
+                                {
+                                    Size = "24",
+                                }),
+                            },
+
+                            TextProperties = new WordParagraphProperties
+                            {
+                                Size = "24",
+                                JustificationValues = JustificationValues.Both
+                            }
+                        }));
+                        docBody.AppendChild(CreateSectionProperties());
+                        index++;
+                    }
                 }
                 docBody.AppendChild(CreateSectionProperties());
 

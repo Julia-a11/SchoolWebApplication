@@ -28,5 +28,7 @@ namespace SchoolBusinessLogic.ViewModel
 
         [DisplayName("ФИО клиента")]
         public string ClientName { get; set; }
+
+        public List<CostViewModel> Costs { get; set; }
     }
 }

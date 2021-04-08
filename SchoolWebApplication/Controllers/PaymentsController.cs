@@ -29,24 +29,24 @@ namespace SchoolWebApplication.Controllers
             return View(payments);
         }
 
-        // GET: Payments/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var payment = await _context.Payments
-        //        .Include(p => p.Lesson)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (payment == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var payment = _paymentLogic.Read(new PaymentBindingModel
+            {
+                Id = id
+            }).FirstOrDefault();
+            if (payment == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(payment);
-        //}
+            return View(payment);
+        }
 
         // GET: Payments/Create
         public IActionResult Create()
@@ -71,92 +71,92 @@ namespace SchoolWebApplication.Controllers
             return View(payment);
         }
 
-        //// GET: Payments/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Payments/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var payment = await _context.Payments.FindAsync(id);
-        //    if (payment == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "LessonName", payment.LessonId);
-        //    return View(payment);
-        //}
+            var payment = _paymentLogic.Read(new PaymentBindingModel { Id = id }).FirstOrDefault();
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            ViewData["LessonId"] = new SelectList(_lessonLogic.Read(null), "Id", "LessonName", payment.LessonId);
+            return View(new PaymentBindingModel
+            {
+               Id = payment.Id,
+               Sum = payment.Sum
+            });
+        }
+
 
         //// POST: Payments/Edit/5
         //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
         //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Sum,LessonId")] Payment payment)
-        //{
-        //    if (id != payment.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Sum,LessonId")] PaymentBindingModel payment)
+        {
+            if (id != payment.Id)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(payment);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PaymentExists(payment.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "LessonName", payment.LessonId);
-        //    return View(payment);
-        //}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _paymentLogic.CreateOrUpdate(payment);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PaymentExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["LessonId"] = new SelectList(_lessonLogic.Read(null), "Id", "LessonName", payment.LessonId);
+            return View(payment);
+        }
 
-        //// GET: Payments/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Payments/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var payment = await _context.Payments
-        //        .Include(p => p.Lesson)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (payment == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var payment = _paymentLogic.Read(new PaymentBindingModel { Id = id }).FirstOrDefault();
+            if (payment == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(payment);
-        //}
+            return View(payment);
+        }
 
-        //// POST: Payments/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var payment = await _context.Payments.FindAsync(id);
-        //    _context.Payments.Remove(payment);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: Payments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            _paymentLogic.Delete(new PaymentBindingModel { Id = id });
+            return RedirectToAction(nameof(Index));
+        }
 
-        //private bool PaymentExists(int id)
-        //{
-        //    return _context.Payments.Any(e => e.Id == id);
-        //}
+        private bool PaymentExists(int id)
+        {
+            return _paymentLogic.Read(null).Any(e => e.Id == id);
+        }
     }
 }

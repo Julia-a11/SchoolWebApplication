@@ -1,0 +1,48 @@
+﻿@model SchoolBusinessLogic.BindingModel.ReportBindingModel
+
+@{ ViewData["Title"] = "Edit"; }
+
+<h1>Получить отчёт</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateFrom" class="control-label"></label>
+                <input asp-for="DateFrom" class="form-control" />
+                <label asp-for="DateTo" class="control-label"></label>
+                <input asp-for="DateTo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сформировать" onclick="refresh()" asp-action="MakeReport" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Отправить на почту" asp-action="MakeReport" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" hidden src="~/list/societiesList.pdf" allowfullscreen id="frame"></iframe>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ 
+<script>
+    function refresh() {
+        var frame = document.getElementById("frame");
+        frame.hidden = false;
+        frame.src = frame.src;
+    }
+</script> 
+    
+
+

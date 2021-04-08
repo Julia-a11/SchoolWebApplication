@@ -1,9 +1,7 @@
-﻿using DocumentFormat.OpenXml.Drawing;
-using MigraDoc.DocumentObjectModel;
+﻿using MigraDoc.DocumentObjectModel;
 using System;
 using System.Collections.Generic;
-using System.Text;
-
+using MigraDoc.DocumentObjectModel.Tables;
 namespace SchoolBusinessLogic.HelperModel
 {
     public class PdfRowParameters

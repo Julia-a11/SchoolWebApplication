@@ -15,6 +15,10 @@ namespace SchoolBusinessLogic.BindingModel
         [DisplayName("Дата записи на кружок")]
         public DateTime DateCreate { get; set; }
 
+        public DateTime? DateFrom { get; set; }
+
+        public DateTime? DateTo { get; set; }
+
         [DisplayName("Возрастное ограничение")]
         public int AgeLimit { get; set; }
 

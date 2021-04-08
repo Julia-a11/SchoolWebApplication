@@ -24,7 +24,8 @@ namespace SchoolDAL.Implement
                 ClientName = society.Client.User.Name,
                 Lessons = society.SocietyLessons
                 .Select(rec => LessonStorage.CreateViewModel(rec.Lesson))
-                .ToList()
+                .ToList(),
+                Costs = society.SocietyCosts.Select(rec => CostStorage.CreateViewModel(rec.Cost)).ToList()
             };
         }
 
@@ -101,6 +102,8 @@ namespace SchoolDAL.Implement
                     .ThenInclude(rec => rec.Lesson)
                     .Include(rec => rec.Client)
                     .ThenInclude(rec => rec.User)
+                    .Include(rec => rec.SocietyCosts)
+                    .ThenInclude(rec => rec.Cost)
                     .FirstOrDefault(rec => rec.SocietyName == model.SocietyName ||
                     rec.Id == model.Id);
 
@@ -122,7 +125,9 @@ namespace SchoolDAL.Implement
                     .ThenInclude(rec => rec.Lesson)
                     .Include(rec => rec.Client)
                     .ThenInclude(rec => rec.User)
-                    .Where(rec => rec.SocietyName.Contains(model.SocietyName))
+                    .Include(rec => rec.SocietyCosts)
+                    .ThenInclude(rec => rec.Cost)
+                    .Where(rec => (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -137,6 +142,8 @@ namespace SchoolDAL.Implement
                     .ThenInclude(rec => rec.Lesson)
                     .Include(rec => rec.Client)
                     .ThenInclude(rec => rec.User)
+                    .Include(rec => rec.SocietyCosts)
+                    .ThenInclude(rec => rec.Cost)
                     .Select(CreateViewModel)
                     .ToList();
             }
