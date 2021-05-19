@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolBusinessLogic.BindingModel;
 using SchoolBusinessLogic.BusinessLogic;
-using SchoolDAL;
-using SchoolDAL.Models;
 
 namespace SchoolWebApplication.Controllers
 {
@@ -40,7 +38,7 @@ namespace SchoolWebApplication.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientName, ClientSurname, ClientPatronymic, DateBirth, Login, Password")] ClientBindingModel model)
+        public IActionResult Create(ClientBindingModel model)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +53,7 @@ namespace SchoolWebApplication.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Login,Password")] ClientBindingModel model)
@@ -63,6 +62,32 @@ namespace SchoolWebApplication.Controllers
             {
                 Program.Client = _logic.Login(model);
                 return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
+
+        public IActionResult Edit()
+        {
+            return View(new ClientBindingModel
+            {
+                Id = Program.Client.Id,
+                Login = Program.Client.Login,
+                Password = Program.Client.Password,
+                ClientName = Program.Client.ClientName,
+                ClientSurname = Program.Client.ClientSurname,
+                ClientPatronymic = Program.Client.ClientPatronymic,
+                DateBirth = Program.Client.DateBirth
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ClientBindingModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _logic.CreateOrUpdate(model);
+                return RedirectToAction(nameof(Index));
             }
             return View(model);
         }

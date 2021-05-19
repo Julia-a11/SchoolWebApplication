@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolWebApplication", "Sch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolDAL", "SchoolDAL\SchoolDAL.csproj", "{E3189B95-BE14-4A35-A831-F77AB0192FB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolBusinessLogic", "SchoolBusinessLogic\SchoolBusinessLogic.csproj", "{6652F761-260C-459F-86A7-BD9917148946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolBusinessLogic", "SchoolBusinessLogic\SchoolBusinessLogic.csproj", "{6652F761-260C-459F-86A7-BD9917148946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

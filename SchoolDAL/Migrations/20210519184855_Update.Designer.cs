@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SchoolDAL;
@@ -9,9 +10,10 @@ using SchoolDAL;
 namespace SchoolDAL.Migrations
 {
     [DbContext(typeof(SchoolDataBase))]
-    partial class SchoolDataBaseModelSnapshot : ModelSnapshot
+    [Migration("20210519184855_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,6 +225,9 @@ namespace SchoolDAL.Migrations
                     b.Property<string>("Patronymic")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Surname")
                         .IsRequired()

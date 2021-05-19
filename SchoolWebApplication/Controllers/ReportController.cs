@@ -33,9 +33,8 @@ namespace SchoolWebApplication.Controllers
             model.FileName = @".\wwwroot\list\SocietiesList.pdf";
             model.ClientId = Program.Client.Id;
             _reportLogic.SaveSocietiesToPdfFile(model);
-            var fileName = "SocietiesList.pdf";
-            var filePath = _environment.WebRootPath + @"\list\" + fileName;
-            return PhysicalFile(filePath, "application/pdf", fileName);
+            ViewBag.CheckingReport = model.FileName;
+            return View("Index");
         }
 
         [HttpPost]

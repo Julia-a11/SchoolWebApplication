@@ -40,8 +40,12 @@
     function refresh() {
         var frame = document.getElementById("frame");
         frame.hidden = false;
-        frame.src = frame.src;
+        frame.src = frame.src + "?unique=" + new Date().getTime();
     }
+       @if (ViewBag.CheckingReport != null)
+       {
+          <text> window.onload = refresh; </text>
+       }
 </script> 
     
 

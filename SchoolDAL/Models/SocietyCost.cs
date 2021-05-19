@@ -12,6 +12,8 @@ namespace SchoolDAL.Models
 
         public int CostId { get; set; }
 
+        public decimal AdditionalCosts { get; set; }
+
         public virtual Society Society { get; set; }
 
         public virtual Cost Cost { get; set; }

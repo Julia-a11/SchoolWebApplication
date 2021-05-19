@@ -13,6 +13,9 @@ namespace SchoolDAL.Models
         [Required]
         public decimal Sum { get; set; }
 
+        [Required]
+        public string Description { get; set; }
+
         [ForeignKey("CostId")]
         public virtual List<SocietyCost> SocietyCosts { get; set; }
     }

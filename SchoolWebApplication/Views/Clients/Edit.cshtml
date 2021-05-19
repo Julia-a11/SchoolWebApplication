@@ -1,0 +1,64 @@
+﻿@model SchoolBusinessLogic.BindingModel.ClientBindingModel
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+<div class="text-center">
+    <h1>Изменение данных</h1>
+</div>
+
+
+<h4>Введите данные</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ClientName" class="control-label"></label>
+                <input asp-for="ClientName" class="form-control" />
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientSurname" class="control-label"></label>
+                <input asp-for="ClientSurname" class="form-control" />
+                <span asp-validation-for="ClientSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientPatronymic" class="control-label"></label>
+                <input asp-for="ClientPatronymic" class="form-control" />
+                <span asp-validation-for="ClientPatronymic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateBirth" class="control-label"></label>
+                <input asp-for="DateBirth" class="form-control" />
+                <span asp-validation-for="DateBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

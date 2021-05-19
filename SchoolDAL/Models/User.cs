@@ -20,8 +20,6 @@ namespace SchoolDAL.Models
 
         public DateTime DateBirth { get; set; }
 
-        public int PhoneNumber { get; set; }
-
         [Required]
         public string Login { get; set; }
 

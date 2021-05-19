@@ -1,0 +1,69 @@
+﻿@using System.Web
+@model SchoolBusinessLogic.ViewModel.DiagramViewModel[]
+
+@{ ViewData["Title"] = "Diagram"; }
+
+<div class="text-center">
+    <form asp-action="Index">
+        <div class="form-group">
+            <label value="Кружок" class="control-label"></label>
+            <select name="societyId" id="lesson" class="form-control" asp-items="ViewBag.Societies"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Сформировать диаграммы" class="btn btn-primary" />
+        </div>
+        <div id="LessonsCount"></div>
+        <div id="LessonsPrice"></div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChartLessonsCount);
+      google.charts.setOnLoadCallback(drawChartLessonsPrice);
+
+    @if (Model != null) {
+        <text>
+        function drawChartLessonsCount() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[0].ColumnName))');
+            data.addColumn('number', '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[0].ValueName))');
+          @foreach (var row in Model[0].Data) {
+          <text>
+          data.addRow(['@Html.Raw(HttpUtility.JavaScriptStringEncode(row.Item1))', @row.Item2]);
+          </text>
+          }
+                    var options = {
+              'title': '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[0].Title))',
+                       'width':1200,
+                       'height':900};
+
+            var chart = new google.visualization.PieChart(document.getElementById('LessonsCount'));
+            chart.draw(data, options);
+        }
+        function drawChartLessonsPrice() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[1].ColumnName))');
+            data.addColumn('number', '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[1].ValueName))');
+          @foreach (var row in Model[1].Data) {
+          <text>
+          data.addRow(['@Html.Raw(HttpUtility.JavaScriptStringEncode(row.Item1))', @row.Item2]);
+          </text>
+          }
+                    var options = {
+              'title': '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[1].Title))',
+                       'width':1200,
+                       'height':900};
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('LessonsPrice'));
+            chart.draw(data, options);
+        }
+        </text>
+    }
+</script>

@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using SchoolBusinessLogic.BusinessLogic;
 using SchoolBusinessLogic.HelperModel;
 using SchoolBusinessLogic.Interface;
-using SchoolDAL;
 using SchoolDAL.Implement;
 using System;
 using System.Collections.Generic;
@@ -48,6 +47,7 @@ namespace SchoolWebApplication
             services.AddTransient<ReportLogic>();
             services.AddTransient<ICostStorage, CostStorage>();
             services.AddTransient<MailLogic>();
+            services.AddTransient<DiagramLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

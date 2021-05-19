@@ -14,6 +14,17 @@ namespace SchoolDAL.Implement
     {
         private Client CreateModel(ClientBindingModel model, Client client, SchoolDataBase schoolDataBase)
         {
+            if (model.Id.HasValue)
+            {
+                client.User.Login = model.Login;
+                client.User.Password = model.Password;
+                client.User.Name = model.ClientName;
+                client.User.Patronymic = model.ClientPatronymic;
+                client.User.Surname = model.ClientSurname;
+                client.User.DateBirth = model.DateBirth;
+                schoolDataBase.SaveChanges();
+                return client;
+            }
             User user = new User
             {
                 Name = model.ClientName,
@@ -89,7 +100,16 @@ namespace SchoolDAL.Implement
 
         public void Update(ClientBindingModel model)
         {
-            throw new NotImplementedException();
+            using (var schoolDataBase = new SchoolDataBase())
+            {
+                var client = schoolDataBase.Clients.Include(rec => rec.User).FirstOrDefault(rec => rec.Id == model.Id);
+                if (client == null)
+                {
+                    throw new Exception("Клиент не найден");
+                }
+                CreateModel(model, client, schoolDataBase);
+                schoolDataBase.SaveChanges();
+            }
         }
 
         public void Delete(ClientBindingModel model)

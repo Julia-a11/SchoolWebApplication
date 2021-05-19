@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SchoolBusinessLogic\SchoolBusinessLogic.csproj" />
     <ProjectReference Include="..\SchoolDAL\SchoolDAL.csproj" />
   </ItemGroup>
 
