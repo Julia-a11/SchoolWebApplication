@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolDAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolDAL
 {
@@ -12,7 +9,7 @@ namespace SchoolDAL
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=schooldatabase;Username=postgres;Password=12345");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=schooldatabase;Username=postgres;Password=123321");
             }
             base.OnConfiguring(optionsBuilder);
         }

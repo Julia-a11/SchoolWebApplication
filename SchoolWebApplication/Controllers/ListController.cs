@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SchoolBusinessLogic.BindingModel;
 using SchoolBusinessLogic.BusinessLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SchoolWebApplication.Controllers
 {
@@ -32,9 +28,10 @@ namespace SchoolWebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult MakeListDoc([Bind("SocietyId")]ReportBindingModel model)
+        public IActionResult MakeListDoc([Bind("SelectedSocieties")]ReportBindingModel model)
         {
             model.FileName = @".\wwwroot\list\SocietiesList.doc";
+            model.ClientId = Program.Client.Id;
             _reportLogic.SaveSocietiesToWordFile(model);
 
             var fileName = "SocietiesList.doc";
@@ -43,9 +40,10 @@ namespace SchoolWebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult MakeListXls([Bind("SocietyId")] ReportBindingModel model)
+        public IActionResult MakeListXls([Bind("SelectedSocieties")] ReportBindingModel model)
         {
             model.FileName = @".\wwwroot\list\SocietiesList.xls";
+            model.ClientId = Program.Client.Id;
             _reportLogic.SaveSocietiesToExcelFile(model);
 
             var fileName = "SocietiesList.xls";

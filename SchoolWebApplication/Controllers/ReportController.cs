@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolBusinessLogic.BindingModel;
 using SchoolBusinessLogic.BusinessLogic;
+using SchoolBusinessLogic.HelperModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,27 @@ namespace SchoolWebApplication.Controllers
         public IActionResult MakeReport([Bind("DateTo,DateFrom")]ReportBindingModel model)
         {
             model.FileName = @".\wwwroot\list\SocietiesList.pdf";
+            model.ClientId = Program.Client.Id;
             _reportLogic.SaveSocietiesToPdfFile(model);
-
             var fileName = "SocietiesList.pdf";
             var filePath = _environment.WebRootPath + @"\list\" + fileName;
             return PhysicalFile(filePath, "application/pdf", fileName);
+        }
+
+        [HttpPost]
+        public IActionResult SendMail([Bind("DateTo,DateFrom")] ReportBindingModel model)
+        {
+            model.FileName = @".\wwwroot\list\SocietiesList.pdf";
+            model.ClientId = Program.Client.Id;
+            _reportLogic.SaveSocietiesToPdfFile(model);
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = Program.Client.Login,
+                Subject = "Отчет",
+                Text = "Отчет по кружкам",
+                ReportFile = model.FileName
+            });
+            return RedirectToAction("Index");
         }
     }
 }

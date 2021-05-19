@@ -12,44 +12,39 @@ namespace SchoolBusinessLogic.BusinessLogic
     {
         private readonly ISocietyStorage _societyStorage;
 
-        private readonly ILessonStorage _lessonStorage;
-
-        private readonly IPaymentStorage _paymentStorage;
-
-        private readonly ICostStorage _costStorage;
-
-        public ReportLogic(ISocietyStorage societyStorage, ILessonStorage lessonStorage, IPaymentStorage paymentStorage, ICostStorage costStorage)
+        public ReportLogic(ISocietyStorage societyStorage)
         {
             _societyStorage = societyStorage;
-            _lessonStorage = lessonStorage;
-            _paymentStorage = paymentStorage;
-            _costStorage = costStorage;
         }
 
-        // Сохранение компонент в файл-Word
         public void SaveSocietiesToWordFile(ReportBindingModel model)
         {
             SaveToWordLogic.CreateDoc(new ListInfo
             {
                 FileName = model.FileName,
                 Title = "Список занятий",
-                Societies = _societyStorage.GetFullList().Where(rec => model.SocietyId.Contains(rec.Id)).ToList()
+                Societies = _societyStorage.GetFilteredList(new SocietyBindingModel
+                {
+                    ClientId = model.ClientId,
+                    SelectedSocieties = model.SelectedSocieties
+                })
             });
         }
 
-        // Сохранение компонент с указаеним продуктов в файл-Excel
         public void SaveSocietiesToExcelFile(ReportBindingModel model)
         {
             SaveToExcelLogic.CreateDoc(new ListInfo
             {
                 FileName = model.FileName,
                 Title = "Список занятий",
-                Societies = _societyStorage.GetFullList().Where(rec => model.SocietyId.Contains(rec.Id)).ToList()
+                Societies = _societyStorage.GetFilteredList(new SocietyBindingModel 
+                { 
+                    ClientId = model.ClientId,
+                    SelectedSocieties = model.SelectedSocieties
+                })
             });
         }
 
-        // Сохранение заказов в файл-Pdf
-        [Obsolete]
         public void SaveSocietiesToPdfFile(ReportBindingModel model)
         {
             SaveToPdfLogic.CreateDoc(new PdfInfo
@@ -61,7 +56,8 @@ namespace SchoolBusinessLogic.BusinessLogic
                 Societies = _societyStorage.GetFilteredList(new SocietyBindingModel
                 {
                     DateTo = model.DateTo,
-                    DateFrom = model.DateFrom
+                    DateFrom = model.DateFrom,
+                    ClientId = model.ClientId
                 })
             });
         }

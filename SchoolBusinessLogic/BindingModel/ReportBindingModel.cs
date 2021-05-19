@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolBusinessLogic.BindingModel
 {
@@ -12,6 +11,8 @@ namespace SchoolBusinessLogic.BindingModel
 
         public DateTime? DateTo { get; set; }
 
-        public List<int> SocietyId { get; set; }
+        public List<int> SelectedSocieties { get; set; }
+
+        public int ClientId { get; set; }
     }
 }

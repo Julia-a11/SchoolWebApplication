@@ -10,8 +10,8 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SocietyId" class="control-label"></label>
-                <select asp-for="SocietyId" id="lesson" class="form-control" mu asp-items="ViewBag.SocietyId"></select>
+                <label asp-for="SelectedSocieties" class="control-label">Список кружков</label>
+                <select asp-for="SelectedSocieties" id="lesson" class="form-control" multiple required asp-items="ViewBag.SocietyId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Получить doc" asp-action="MakeListDoc" class="btn btn-primary" />

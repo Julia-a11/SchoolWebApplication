@@ -27,6 +27,8 @@ namespace SchoolBusinessLogic.BindingModel
 
         public List<int> Lessons { get; set; }
 
+        public List<int> SelectedSocieties { get; set; }
+
         public int ClientId { get; set; }
     }
 }

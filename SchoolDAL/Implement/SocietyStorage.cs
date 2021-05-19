@@ -127,7 +127,9 @@ namespace SchoolDAL.Implement
                     .ThenInclude(rec => rec.User)
                     .Include(rec => rec.SocietyCosts)
                     .ThenInclude(rec => rec.Cost)
-                    .Where(rec => (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+                    .Where(rec => model.DateFrom.HasValue && model.DateTo.HasValue && rec.ClientId == model.ClientId &&
+                    rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date ||
+                    !model.DateFrom.HasValue && !model.DateTo.HasValue && rec.ClientId == model.ClientId && model.SelectedSocieties.Contains(rec.Id))
                     .Select(CreateViewModel)
                     .ToList();
             }

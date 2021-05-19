@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SchoolBusinessLogic.BusinessLogic;
+using SchoolBusinessLogic.HelperModel;
 using SchoolBusinessLogic.Interface;
 using SchoolDAL;
 using SchoolDAL.Implement;
@@ -20,6 +21,14 @@ namespace SchoolWebApplication
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = configuration["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(configuration["SmtpClientPort"]),
+                MailLogin = configuration["MailLogin"],
+                MailPassword = configuration["MailPassword"],
+            });
         }
 
         public IConfiguration Configuration { get; }
@@ -38,6 +47,7 @@ namespace SchoolWebApplication
             services.AddTransient<IPaymentStorage, PaymentStorage>();
             services.AddTransient<ReportLogic>();
             services.AddTransient<ICostStorage, CostStorage>();
+            services.AddTransient<MailLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
