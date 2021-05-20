@@ -12,5 +12,17 @@ namespace SchoolBusinessLogic.ViewModel
 
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }
+
+        [DisplayName("Дата выставления затрат")]
+        public DateTime CostDate { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        [DisplayName("Имя работника")]
+        public string EmployeeName { get; set; }
+
+        public string Description { get; set; }
+
+        public decimal AdditionalCost { get; set; }
     }
 }

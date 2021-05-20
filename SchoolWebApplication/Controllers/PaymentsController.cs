@@ -52,6 +52,7 @@ namespace SchoolWebApplication.Controllers
         public IActionResult Create()
         {
             ViewData["LessonId"] = new SelectList(_lessonLogic.Read(null), "Id", "LessonName");
+            ViewData["Lessons"] = _lessonLogic.Read(null);
             return View();
         }
 
@@ -64,11 +65,21 @@ namespace SchoolWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                payment.ClientId = Program.Client.Id;
                 _paymentLogic.CreateOrUpdate(payment);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LessonId"] = new SelectList(_lessonLogic.Read(null), "Id", "LessonName", payment.LessonId);
             return View(payment);
+        }
+
+        [HttpPost]
+        public decimal GetFullSum(int lessonId)
+        {
+            return _lessonLogic.Read(new LessonBindingModel
+            {
+                Id = lessonId
+            }).FirstOrDefault().Price;
         }
 
         // GET: Payments/Edit/5
@@ -109,6 +120,7 @@ namespace SchoolWebApplication.Controllers
             {
                 try
                 {
+                    payment.ClientId = Program.Client.Id;
                     _paymentLogic.CreateOrUpdate(payment);
                 }
                 catch (DbUpdateConcurrencyException)

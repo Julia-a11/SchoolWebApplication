@@ -40,13 +40,6 @@ namespace SchoolBusinessLogic.BusinessLogic
 
                 document.Add(societyName);
 
-                Paragraph dateCreate = new Paragraph(society.DateCreate.ToShortDateString())
-                .SetFontSize(16)
-                .SetTextAlignment(TextAlignment.CENTER)
-                .SetFont(font);
-
-                document.Add(dateCreate);
-
                 Paragraph costHeader = new Paragraph("Затраты")
                     .SetFontSize(16)
                     .SetTextAlignment(TextAlignment.LEFT)
@@ -54,11 +47,11 @@ namespace SchoolBusinessLogic.BusinessLogic
 
                 document.Add(costHeader);
 
-                Table tableCosts = new Table(2, false);
+                Table tableCosts = new Table(4, false);
 
-                Cell numberCell = new Cell(1, 1)
+                Cell deskCell = new Cell(1, 1)
                         .SetTextAlignment(TextAlignment.CENTER)
-                        .Add(new Paragraph("Номер затраты"))
+                        .Add(new Paragraph("Описание"))
                         .SetFont(font);
 
                 Cell sumCell = new Cell(1, 1)
@@ -66,14 +59,26 @@ namespace SchoolBusinessLogic.BusinessLogic
                     .Add(new Paragraph("Сумма"))
                     .SetFont(font);
 
-                tableCosts.AddCell(numberCell);
+                Cell costCell = new Cell(1, 1)
+                   .SetTextAlignment(TextAlignment.CENTER)
+                   .Add(new Paragraph("Дополнительные затраты"))
+                   .SetFont(font);
+
+                Cell dateCell = new Cell(1, 1)
+                   .SetTextAlignment(TextAlignment.CENTER)
+                   .Add(new Paragraph("Дата"))
+                   .SetFont(font);
+
+                tableCosts.AddCell(deskCell);
                 tableCosts.AddCell(sumCell);
+                tableCosts.AddCell(costCell);
+                tableCosts.AddCell(dateCell);
 
                 foreach (var cost in society.Costs)
                 {
-                    numberCell = new Cell(1, 1)
+                    deskCell = new Cell(1, 1)
                         .SetTextAlignment(TextAlignment.CENTER)
-                        .Add(new Paragraph(cost.Id.ToString())
+                        .Add(new Paragraph(cost.Description)
                         .SetFont(font));
 
                     sumCell = new Cell(1, 1)
@@ -81,8 +86,20 @@ namespace SchoolBusinessLogic.BusinessLogic
                         .Add(new Paragraph(cost.Sum.ToString()))
                         .SetFont(font);
 
-                    tableCosts.AddCell(numberCell);
+                    costCell = new Cell(1, 1)
+                       .SetTextAlignment(TextAlignment.CENTER)
+                       .Add(new Paragraph(cost.AdditionalCost.ToString()))
+                       .SetFont(font);
+
+                    dateCell = new Cell(1, 1)
+                       .SetTextAlignment(TextAlignment.CENTER)
+                       .Add(new Paragraph(cost.CostDate.ToShortDateString()))
+                       .SetFont(font);
+
+                    tableCosts.AddCell(deskCell);
                     tableCosts.AddCell(sumCell);
+                    tableCosts.AddCell(costCell);
+                    tableCosts.AddCell(dateCell);
                 }
 
                 document.Add(tableCosts);

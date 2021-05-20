@@ -63,7 +63,7 @@ namespace SchoolWebApplication.Controllers
                 Program.Client = _logic.Login(model);
                 return RedirectToAction("Index", "Home");
             }
-            return View(model);
+            return View("Index", model);
         }
 
         public IActionResult Edit()

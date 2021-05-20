@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -28,10 +29,13 @@ namespace SchoolBusinessLogic.BindingModel
         [DisplayName("Дата рождения")]
         public DateTime DateBirth { get; set; }
 
+        [Required]
+        [EmailAddress(ErrorMessage = "Неверный формат почты")]
         [DataMember]
         [DisplayName("Логин")]
         public string Login { get; set; }
 
+        [Required]
         [DataMember]
         [DisplayName("Пароль")]
         public string Password { get; set; }

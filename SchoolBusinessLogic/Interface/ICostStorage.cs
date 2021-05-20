@@ -9,5 +9,7 @@ namespace SchoolBusinessLogic.Interface
     public interface ICostStorage
     {
         List<CostViewModel> GetFullList();
+
+        List<CostViewModel> GetFilteredList(CostBindingModel model);
     }
 }

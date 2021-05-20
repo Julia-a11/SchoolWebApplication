@@ -2,7 +2,9 @@
 
 @{ ViewData["Title"] = "Edit"; }
 
-<h1>Получить отчёт</h1>
+<div class="text-center mt-5">
+    <h1>Получить отчёт</h1>
+</div>
 <hr />
 
 <div class="row">
@@ -16,20 +18,20 @@
                 <input asp-for="DateTo" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Сформировать" onclick="refresh()" asp-action="MakeReport" class="btn btn-primary" />
+                <input type="submit" value="Сформировать" onclick="refresh()" asp-action="MakeReport" class="btn btn-primary mt-5" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Отправить на почту" asp-action="SendMail" class="btn btn-primary" />
+                <input type="submit" value="Отправить на почту" asp-action="SendMail" class="btn btn-primary mt-3" />
             </div>
         </form>
     </div>
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" hidden src="~/list/societiesList.pdf" allowfullscreen id="frame"></iframe>
+    <div class="embed-responsive embed-responsive-16by9 col-8">
+        <iframe class="embed-responsive-item w-100" hidden src="~/list/societiesList.pdf" allowfullscreen id="frame"></iframe>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Назад</a>
+    <a asp-action="Index" class="mt-3">Назад</a>
 </div>
 
 @section Scripts {
@@ -41,6 +43,7 @@
         var frame = document.getElementById("frame");
         frame.hidden = false;
         frame.src = frame.src + "?unique=" + new Date().getTime();
+        frame.style.height = '700px';
     }
        @if (ViewBag.CheckingReport != null)
        {

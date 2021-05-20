@@ -3,14 +3,18 @@
 
 @{ ViewData["Title"] = "Diagram"; }
 
-<div class="text-center">
+<div class="text-center mt-5">
+    <h1>Диаграммы</h1>
+</div>
+<hr />
+<div class="text-center mt-5">
     <form asp-action="Index">
         <div class="form-group">
-            <label value="Кружок" class="control-label"></label>
+            <label value="Кружок" class="control-label mt-3"></label>
             <select name="societyId" id="lesson" class="form-control" asp-items="ViewBag.Societies"></select>
         </div>
         <div class="form-group">
-            <input type="submit" value="Сформировать диаграммы" class="btn btn-primary" />
+            <input type="submit" value="Сформировать диаграммы" class="btn btn-primary mt-3" />
         </div>
         <div id="LessonsCount"></div>
         <div id="LessonsPrice"></div>

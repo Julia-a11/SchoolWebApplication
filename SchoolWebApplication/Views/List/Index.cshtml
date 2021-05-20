@@ -2,22 +2,24 @@
 
 @{ ViewData["Title"] = "Edit"; }
 
-<h1>Получить список</h1>
+<div class="text-center mt-5">
+    <h1>Получить список</h1>
+</div>
 <hr />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 offset-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SelectedSocieties" class="control-label">Список кружков</label>
+                <label asp-for="SelectedSocieties" class="control-label mt-3">Список кружков</label>
                 <select asp-for="SelectedSocieties" id="lesson" class="form-control" multiple required asp-items="ViewBag.SocietyId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Получить doc" asp-action="MakeListDoc" class="btn btn-primary" />
+                <input type="submit" value="Получить doc" asp-action="MakeListDoc" class="btn btn-primary mt-5" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Получить xls" asp-action="MakeListXls" class="btn btn-primary" />
+                <input type="submit" value="Получить xls" asp-action="MakeListXls" class="btn btn-primary mt-3" />
             </div>
         </form>
     </div>

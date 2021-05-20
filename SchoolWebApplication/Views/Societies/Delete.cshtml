@@ -4,12 +4,12 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Удаление</h1>
+<div class="text-center mt-5" >
+    <h3>Вы уверены, что хотите удалить кружок?</h3>
+</div>
 
-<h3>Вы уверены, что хотите удалить кружок?</h3>
-<div>
-    <h4>Society</h4>
-    <hr />
+<hr />
+
     <div class="row">
         <dl class="col-6">
             <dt class="col-sm-2">
@@ -65,8 +65,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-        </tr>
-}
+        </tr>}
                 </tbody>
             </table>
         </div>
@@ -74,7 +73,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <input type="submit" value="Удалить" class="btn btn-danger w-100 mt-5" /> |
         <a asp-action="Index">Назад</a>
     </form>
 </div>

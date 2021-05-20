@@ -19,5 +19,13 @@ namespace SchoolBusinessLogic.ViewModel
 
         [DisplayName("Всего к оплате")]
         public decimal FullSum { get; set; }
+
+        [DisplayName("Дата оплаты")]
+        public DateTime PaymentDate { get; set; }
+
+        public int ClientId { get; set; }
+
+        [DisplayName("Имя клиента")]
+        public string ClientName { get; set; }
     }
 }

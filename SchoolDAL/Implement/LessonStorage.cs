@@ -21,7 +21,7 @@ namespace SchoolDAL.Implement
                 LessonCount = lesson.LessonCount,
                 Price = lesson.Price,
                 EmployeeId = lesson.EmployeeId,
-               // EmployeeName = lesson.Employee.User.Name
+                EmployeeName = lesson.Employee?.User.Name
             };
         }
 

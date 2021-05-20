@@ -16,5 +16,8 @@ namespace SchoolDAL.Models
 
         [ForeignKey("EmployeeId")]
         public List<Lesson> Lessons { get; set; }
+
+        [ForeignKey("EmployeeId")]
+        public virtual List<Cost> Costs { get; set; }
     }
 }

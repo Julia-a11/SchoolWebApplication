@@ -16,7 +16,14 @@ namespace SchoolDAL.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
+        public DateTime CostDate { get; set; }
+
         [ForeignKey("CostId")]
         public virtual List<SocietyCost> SocietyCosts { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        public virtual Employee Employee { get; set; }
     }
 }

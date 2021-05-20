@@ -4,11 +4,11 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Удаление</h1>
-
-<h3>Вы уверены, что хотите далить оплату?</h3>
 <div>
-    <hr />
+    <h3>Вы уверены, что хотите удалить оплату?</h3>
+</div>
+<hr />
+<div>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Sum)
@@ -21,6 +21,6 @@
     </div>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <input type="submit" value="Удалить" class="btn btn-danger w-100 mt-5" /> |
         <a asp-action="Index">Назад</a>
     </form>

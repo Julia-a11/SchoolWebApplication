@@ -4,28 +4,30 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Оплата</h1>
+<div class="text-center mt-5">
+    <h1>Оплата</h1>
+</div>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 offset-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Sum" class="control-label">Внесённая сумма:</label>
+                <label asp-for="Sum" class="control-label mt-3">Внесённая сумма:</label>
                 <input asp-for="Sum" class="form-control" id="sum" />
                 <span asp-validation-for="Sum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Всего к оплате</label>
-                <input id="fullSum" readonly class="form-control" value="ViewBag.FullSum"  />
-            </div>
-            <div class="form-group">
-                <label asp-for="LessonId" class="control-label">Занятие</label>
+                <label asp-for="LessonId" class="control-label mt-3">Занятие</label>
                 <select asp-for="LessonId" id="lesson" class="form-control" asp-items="ViewBag.LessonId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Оплатить" class="btn btn-primary" />
+                <label class="control-label mt-3">Всего к оплате</label>
+                <input id="fullSum" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Оплатить" class="btn btn-primary w-100 mt-5" />
             </div>
         </form>
     </div>
@@ -35,23 +37,25 @@
     <a asp-action="Index">Назад</a>
 </div>
 
-@*<script>
-    $('#sum').on('change', function () {
-        check();
-    });
-
+<script>
     $('#lesson').on('change', function () {
         check();
     });
 
     function check() {
-        var sum = $('#sum').val();
-        var fullSum = $('#fullSum').val();
-        if (sum) {
-            $("#fullSum").val(fullSum - sum);
+        var lesson = $('#lesson').val();
+        if (lesson) {
+            $.ajax({
+                method: "POST",
+                url: "/Payments/GetFullSum",
+                data: { lessonId: lesson},
+                success: function (result) {
+                    $("#fullSum").val(result);
+                }
+            });
         };
     }
-</script>*@
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

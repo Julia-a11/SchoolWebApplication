@@ -4,28 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
+<div class="text-center mt-5">
 <h1>Вход</h1>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <form class="form-horizontal" asp-action="Login">
+        <div class="col-sm-4 offset-4">
+            <form asp-action="Login">
                 <div class="form-group">
-                    <label asp-for="Login" class="control-label">Логин</label>
+                    <label asp-for="Login" class="form-label mt-3">Логин</label>
                     <input asp-for="Login" class="form-control" type="text" />
+                    <span asp-validation-for="Login" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password" class="control-label">Пароль</label>
+                    <label asp-for="Password" class="form-label mt-3">Пароль</label>
                     <input asp-for="Password" class="form-control" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Авторизация" class="btn btn-primary" />
+                    <input type="submit" value="Авторизация" class="btn btn-primary w-100 mt-5" />
                 </div>
                 <div class="form-group">
-                    <a asp-action="Create" class="btn btn-light">Регистрация</a>
+                    <a asp-action="Create" class="btn btn-light w-100 mt-3">Регистрация</a>
                 </div>
             </form>
         </div>

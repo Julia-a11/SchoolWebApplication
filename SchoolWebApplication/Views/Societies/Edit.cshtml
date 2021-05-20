@@ -4,35 +4,36 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Изменения</h1>
+<div class="text-center mt-5">
+    <h1>Изменения</h1>
+</div>
 
-<h4>Кружки</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 offset-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SocietyName" class="control-label">Кружок:</label>
+                <label asp-for="SocietyName" class="control-label mt-3">Кружок:</label>
                 <input asp-for="SocietyName" class="form-control" />
                 <span asp-validation-for="SocietyName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AgeLimit" class="control-label">Возрастное ограничение:</label>
+                <label asp-for="AgeLimit" class="control-label mt-3">Возрастное ограничение:</label>
                 <input asp-for="AgeLimit" class="form-control" />
                 <span asp-validation-for="AgeLimit" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sum" class="control-label">Стоимость:</label>
+                <label asp-for="Sum" class="control-label mt-3">Стоимость:</label>
                 <input asp-for="Sum" class="form-control" />
                 <span asp-validation-for="Sum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Lessons" class="control-label">Занятие</label>
+                <label asp-for="Lessons" class="control-label mt-3">Занятие</label>
                 <select asp-for="Lessons" class="form-control" multiple asp-items="ViewBag.LessonId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary w-100 mt-3" />
             </div>
         </form>
     </div>

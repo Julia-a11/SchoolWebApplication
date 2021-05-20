@@ -6,7 +6,6 @@ using SchoolDAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SchoolDAL.Implement
 {
@@ -14,9 +13,10 @@ namespace SchoolDAL.Implement
     {
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
-
             payment.LessonId = model.LessonId;
             payment.Sum = model.Sum;
+            payment.PaymentDate = model.PaymentDate;
+            payment.ClientId = model.ClientId;
             return payment;
         }
 
@@ -28,7 +28,9 @@ namespace SchoolDAL.Implement
                 LessonId = payment.LessonId,
                 LessonName = payment.Lesson.LessonName,
                 Sum = payment.Sum,
-                FullSum = payment.Lesson.Price
+                FullSum = payment.Lesson.Price,
+                PaymentDate = payment.PaymentDate,
+                ClientId = payment.ClientId
             };
         }
 
@@ -38,6 +40,8 @@ namespace SchoolDAL.Implement
             {
                 return context.Payments
                     .Include(rec => rec.Lesson)
+                    .Include(rec => rec.Client)
+                    .ThenInclude(rec => rec.User)
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -54,7 +58,9 @@ namespace SchoolDAL.Implement
             {
                 return context.Payments
                     .Include(rec => rec.Lesson)
-                    .Where(rec => rec.LessonId == model.LessonId)
+                    .Include(rec => rec.Client)
+                    .ThenInclude(rec => rec.User)
+                    .Where(rec => rec.ClientId == model.ClientId)
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -71,6 +77,8 @@ namespace SchoolDAL.Implement
             {
                 var payment = context.Payments
                     .Include(rec => rec.Lesson)
+                    .Include(rec => rec.Client)
+                    .ThenInclude(rec => rec.User)
                     .FirstOrDefault(rec => rec.Id == model.Id);
 
                 return payment != null ? CreateViewModel(payment) : null;
@@ -101,6 +109,7 @@ namespace SchoolDAL.Implement
                 {
                     try
                     {
+                        model.PaymentDate = DateTime.Now;
                         context.Payments.Add(CreateModel(model, new Payment()));
                         context.SaveChanges();
 
